@@ -23,6 +23,7 @@
 
             <xpath expr="//notebook/page/field[@name='input_line_ids']/tree/field[@name='amount']" position="after">
                     <field name="number_of_hours"/>
+                    <field name="total_amount"/>
             </xpath>
 
         </field>
