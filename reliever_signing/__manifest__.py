@@ -8,7 +8,7 @@
     'description': """Releiver Signing""",
     'category': 'Releiver Signing Management',
     'website': '',
-    'depends' : ['base', 'hr_holidays'],
+    'depends' : ['base', 'hr_holidays','hr_payroll'],
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
