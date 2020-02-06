@@ -12,8 +12,15 @@ from odoo import api, fields, models, _
 
 
 class ReleiverSigning(models.Model):
-    _inherit= "hr.leave"
+    _inherit = "hr.leave"
     _description = "Reliever Name"
 
     releiver_name = fields.Many2one("res.users",string='Releiver Name')
+
+
+class OtherAmount(models.Model):
+    _inherit = 'hr.payslip.input'
+    _description = "Payslip Input Hours"
+
+    number_of_hours = fields.Float(string='Number of Hours')
 
