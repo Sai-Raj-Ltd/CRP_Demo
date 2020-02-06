@@ -31,4 +31,3 @@ class OtherAmount(models.Model):
             if rec.number_of_hours and rec.amount:
                 for get in self:
                     get.total_amount = get.amount * get.number_of_hours
-
