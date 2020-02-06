@@ -24,7 +24,7 @@ class OtherAmount(models.Model):
 
     number_of_hours = fields.Float(string='Number of Hours')
     total_amount = fields.Float(string='Total Amount', compute='_compute_amount', )
-
+    
     @api.multi
     def _compute_amount(self):
         for rec in self:
