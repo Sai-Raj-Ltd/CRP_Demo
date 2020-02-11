@@ -15,7 +15,7 @@ class ReleiverSigning(models.Model):
     _inherit = "hr.leave"
     _description = "Reliever Name"
 
-    releiver_name = fields.Many2one("res.users",string='Releiver Name')
+    reliever_name = fields.Many2one("res.users",string='Reliever Name')
 
 
 class OtherAmount(models.Model):
@@ -24,10 +24,16 @@ class OtherAmount(models.Model):
 
     number_of_hours = fields.Float(string='Number of Hours')
     total_amount = fields.Float(string='Total Amount', compute='_compute_amount', )
-    
+
     @api.multi
     def _compute_amount(self):
         for rec in self:
             if rec.number_of_hours and rec.amount:
-                for get in self:
+                for get in rec:
                     get.total_amount = get.amount * get.number_of_hours
+
+class AbsenteeismAmount(models.Model):
+    _inherit = 'hr.payslip'
+    _description = "Absenteeism"
+
+    absenteeism = fields.Float(string='Absent Days')
