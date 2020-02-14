@@ -7,9 +7,11 @@
             <field name="arch" type="xml">
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                  <!-- <field name="remaining_inv_bal" /> -->
+                  <field name="remaining_inv_bal" label ='Balance Due After Withholding' string = "Balance Due After Withholding"  />
                   <field name="vat_registered" />
+                   <field name="withheld_amt_tree" invisible= "1" />
                    <field name="vat_withheld" attrs="{'invisible':[('vat_registered','=',False)]}" />
+                   <field name="withheld_per" attrs="{'invisible':[('vat_withheld','=',False)]}" />
                    <field name="withhold_amount" attrs="{'invisible':[('vat_withheld','=',False)]}" />
                    <field name="withhold_recieved" attrs="{'invisible':[('vat_withheld','=',False)]}"/>
                    <field name="certificate_no" attrs="{'invisible':[('withhold_recieved','=',False)]}" />
@@ -47,6 +49,35 @@
       </record>
 
 
+ <record id="invoice_tree_id" model="ir.ui.view">
+            <field name="name">account.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='residual_signed']" position="after">
+                <field name="withheld_amt_tree" widget = "monetary" sum = "withheld_amt_tree"/>
+                <field name="remaining_inv_bal"  widget = "monetary" string = 'Balance Due After Withholding' sum = "remaining_inv_bal"/>
+              </xpath>
+            </field>
+</record>
+
+
+<record id="invoice_supplier_tre_id" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='amount_total_signed']" position="after">
+                <field name="ven_amt_tree" widget = "monetary"  string = "Withheld Amount" sum = "ven_amt_tree" />
+                <field name="remaining_bill_bal"  widget = "monetary" string = 'Balance Due After Withholding' sum = "remaining_bill_bal" />
+              </xpath>
+
+          </field>
+
+</record>
+
  <record id="invoice_supplier_form_id_1" model="ir.ui.view">
             <field name="name">account.invoice.supplier.inherit</field>
             <field name="model">account.invoice</field>
@@ -55,9 +86,12 @@
 
 
             <xpath expr="//field[@name='reference']" position="after">
-                 <!--  <field name="remaining_bill_bal" /> -->
-
+                    
+                  <field name="remaining_bill_bal" label ='Balance Due After Withholding' string = "Balance Due After Withholding" />
+                  <field name="ven_vat_registered" />
+                   <field name="ven_amt_tree" invisible= "1" />
                   <field name="vendor_withheld" />
+                   <field name="ven_withheld_per" attrs="{'invisible':[('vendor_withheld','=',False)]}"/>
                    <field name="vendor_amount" attrs="{'invisible':[('vendor_withheld','=',False)]}" />
                    <field name="withheld_paid" attrs="{'invisible':[('vendor_withheld','=',False)]}" />
                   
@@ -90,7 +124,7 @@
             <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
             <field name="arch" type="xml">
                <xpath expr="//field[@name='payment_method_id']" position="after">
-                    <!-- <field name="invoice_ref"/> -->
+                    
                     <field name="online_payment_method" style="min-width: 20px;" options="{'horizontal': true}"  widget = "radio"/>
                      <field name="payment_refernce" attrs="{'invisible':[('online_payment_method','=',False)]}"/>
 
