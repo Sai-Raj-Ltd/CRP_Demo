@@ -46,7 +46,7 @@ class SairajInventoryStockPicking(models.Model):
         elif all(move.state == 'cancel' for move in self.move_lines):
             self.state = 'cancel'
         elif all(move.state in ['cancel', 'done'] for move in self.move_lines):
-                if (self.picking_type_id.name == 'Delivery Orders') or (self.move_lines.location_id.name=='Input' and self.origin[0:2]=='PO'):
+                if (self.picking_type_id.name == 'Delivery Orders') or (self.location_id.name=='Input' and self.origin[0:2]=='PO'):
                     self.state = 'approval'
                 else:
                     self.state = 'done'

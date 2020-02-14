@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','account','purchase'],
+    'depends': ['base','account','purchase','account_asset'],
 
     # always loaded
     'data': [
@@ -29,6 +29,7 @@
         'views/purchase_views.xml',
         'views/account_views.xml',
         'views/res_partner_views.xml',
+        # 'views/sale_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
