@@ -40,25 +40,23 @@ class SairajInventoryStockPicking(models.Model):
         - Cancelled: if the picking is cancelled
         '''
 
-        for i in self:
-            if not i.move_lines:
-                i.state = 'draft'
-            elif any(move.state == 'draft' for move in i.move_lines):  # TDE FIXME: should be all ?
-                i.state = 'draft'
-            elif all(move.state == 'cancel' for move in i.move_lines):
-                i.state = 'cancel'
-            elif all(move.state in ['cancel', 'done'] for move in i.move_lines):
-                    if (i.picking_type_id.name == 'Delivery Orders') or (i.move_lines.location_id.name=='Input' and i.origin[0:2]=='PO'):
-                        i.state = 'approval'
-                    else:
-                        i.state = 'done'
-            else:
-                relevant_move_state = i.move_lines._get_relevant_state_among_moves()
-                if relevant_move_state == 'partially_available':
-                    i.state = 'assigned'
+        if not self.move_lines:
+            self.state = 'draft'
+        elif any(move.state == 'draft' for move in self.move_lines):  # TDE FIXME: should be all ?
+            self.state = 'draft'
+        elif all(move.state == 'cancel' for move in self.move_lines):
+            self.state = 'cancel'
+        elif all(move.state in ['cancel', 'done'] for move in self.move_lines):
+                if (self.picking_type_id.name == 'Delivery Orders') or (self.location_id.name=='Input' and self.origin[0:2]=='PO'):
+                    self.state = 'approval'
                 else:
-                    i.state = relevant_move_state
-
+                    self.state = 'done'
+        else:
+            relevant_move_state = self.move_lines._get_relevant_state_among_moves()
+            if relevant_move_state == 'partially_available':
+                self.state = 'assigned'
+            else:
+                self.state = relevant_move_state
 
     def action_for_approval_pick(self):
         self.state='done'
