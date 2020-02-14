@@ -12,9 +12,11 @@ class ResPartnerex(models.Model):
 	is_withholiding_agent = fields.Boolean(string = 'Is Withholding Agent',track_visibility='onchange')
 	vat = fields.Char(string='KRA PIN NO', help="The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements.")
 	_sql_constraints = [
-        ('kra_pin_unique', 'UNIQUE(vat)',
-         'This KRA Pin Should be always Unique, Duplicate KRA Pin are not allowed!'),
-    ]
+				('kra_pin_unique', 'UNIQUE(vat)',
+					'This KRA Pin Should be always Unique, Duplicate KRA Pin are not allowed!'),
+		]
+
+	
 
 
 	@api.one
