@@ -39,6 +39,7 @@ class SairajInventoryStockPicking(models.Model):
         - Done: if the picking is done.
         - Cancelled: if the picking is cancelled
         '''
+
         for i in self:
             if not i.move_lines:
                 i.state = 'draft'
@@ -57,6 +58,7 @@ class SairajInventoryStockPicking(models.Model):
                     i.state = 'assigned'
                 else:
                     i.state = relevant_move_state
+
 
     def action_for_approval_pick(self):
         self.state='done'
