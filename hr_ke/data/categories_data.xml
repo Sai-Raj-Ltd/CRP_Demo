@@ -1,5 +1,5 @@
 <openerp>
-    <data noupdate="1">
+    <data noupdate="0">
         <!-- Special Category 20 comes first -->
         <record id="ke_category20" model="hr.salary.rule.category">
             <field name="code">C020</field>
@@ -30,6 +30,11 @@
         <record id="ke_category5" model="hr.salary.rule.category">
             <field name="code">C005</field>
             <field name="name">Gross Pay Category</field>
+            <field name="note"></field>
+        </record>
+        <record id="ke_category_AB001" model="hr.salary.rule.category">
+            <field name="code">AB001</field>
+            <field name="name">	Absenteeism</field>
             <field name="note"></field>
         </record>
         <record id="ke_category6" model="hr.salary.rule.category">
